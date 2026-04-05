@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+
+  database:
+    image: postgres:13
+    container_name: postgres_megaline
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    restart: always
+
+  mage:
+    image: mageai/mageai:latest
+    container_name: mage_pipeline2
+    env_file:
+      - .env
+    ports:
+      - "6789:6789"
+    volumes:
+      - ./mageai-data:/home/src
+      - ./dbt:/app/dbt
+      - ./data:/app/data
+    environment:
+      - MAGE_MEMORY_USAGE_LIMIT=8192
+    depends_on:
+      - database
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_megaline
+    ports:
+      - "8085:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - database
+
+  spark:
+    build:
+      context: .
+      dockerfile: Dockerfile.spark
+    container_name: spark_notebook2
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    volumes:
+      - ./notebooks:/workspace/notebooks
+      - ./data:/workspace/data
+    environment:
+      - PYSPARK_PYTHON=python3
+      - PYSPARK_DRIVER_PYTHON=python3
+    restart: always

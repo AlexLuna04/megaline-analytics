@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: megaline_raw
+    database: megaline
+    schema: public
+    tables:
+      - name: megaline_plans
+      - name: megaline_users
+      - name: megaline_calls
+      - name: megaline_messages
+      - name: megaline_internet
