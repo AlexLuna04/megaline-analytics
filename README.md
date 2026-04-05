@@ -20,4 +20,4 @@ docker-compose up --build -d
 Ver [docs/erd.md](./docs/erd.md) para el modelo dimensional Gold.
 
 ## Comenatario
-Tanto el data loader como la parte de dbt se pueden encontrar dentro de mage en [mageai-data/default_repo] (./mageai-data/default_repo), la parte de spark esta en [notebooks/avg_revenue_per_plan.ipynb] (./notebooks/avg_revenue_per_plan.ipynb) y también se incluyó la parte extra en su respectiva carpeta.
+Tanto el data loader como la parte de dbt se pueden encontrar dentro de mage en [mageai-data/default_repo](./mageai-data/default_repo), la parte de spark esta en [notebooks/avg_revenue_per_plan.ipynb](./notebooks/avg_revenue_per_plan.ipynb) y también se incluyó la parte extra en su respectiva carpeta.
